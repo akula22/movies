@@ -1,11 +1,13 @@
 package com.example.movies.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.movies.MainViewModel
+import com.example.movies.screens.DetailScreen
 import com.example.movies.screens.MainScreen
 import com.example.movies.screens.SplashScreen
 import com.example.movies.utils.Constants
@@ -29,8 +31,8 @@ fun SetupNavHost(navController: NavHostController, viewModel : MainViewModel) {
         composable(route = Screens.Main.route) {
             MainScreen(navController = navController, viewModel = viewModel)
         }
-        composable(route = Screens.Detail.route) {
-
+        composable(route = Screens.Detail.route + "/{Id}") { backStackEntry ->
+            DetailScreen(navController = navController, viewModel = viewModel, itemId = backStackEntry.arguments?.getString("Id")?: "1")
         }
     }
 }
